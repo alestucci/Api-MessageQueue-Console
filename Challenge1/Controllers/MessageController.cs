@@ -1,4 +1,5 @@
-﻿using Azure.Storage.Queues;
+﻿using Azure.Identity;
+using Azure.Storage.Queues;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -22,14 +23,10 @@ namespace Challenge1.Controllers
         public async Task<IActionResult> CreateMessage(Message message)
         {
             // Create a QueueClient that will authenticate through Active Directory
-            //Uri queueUri = new Uri("https://sachallenge.queue.core.windows.net/va-queue");
-            //QueueClient queue = new QueueClient(queueUri, new DefaultAzureCredential()); 
+            Uri queueUri = new Uri("https://sachallenge.queue.core.windows.net/va-queue");
+            QueueClient queue = new QueueClient(queueUri, new DefaultAzureCredential()); 
 
             var messageByPost = JsonSerializer.Serialize(message);
-
-            string connectionString = _configuration.GetValue<string>("ConnectionString");
-
-            QueueClient queue = new QueueClient(connectionString, "va-queue");
 
             await InsertMessageAsync(queue, messageByPost);
 
