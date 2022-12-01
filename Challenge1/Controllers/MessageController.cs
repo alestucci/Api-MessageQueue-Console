@@ -17,12 +17,13 @@ namespace Challenge1.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost(Name = "CreateMessage")]
+        [HttpPost]
+        [Route("CreateMessage")]
         public async Task<IActionResult> CreateMessage(Message message)
         {
             // Create a QueueClient that will authenticate through Active Directory
-            Uri queueUri = new Uri("https://MYSTORAGEACCOUNT.queue.core.windows.net/QUEUENAME");
-            QueueClient queue = new QueueClient(queueUri /*, new DefaultAzureCredential()*/);
+            //Uri queueUri = new Uri("https://sachallenge.queue.core.windows.net/va-queue");
+            //QueueClient queue = new QueueClient(queueUri, new DefaultAzureCredential()); 
 
             var messageByPost = JsonSerializer.Serialize(message);
 
@@ -33,7 +34,6 @@ namespace Challenge1.Controllers
             await InsertMessageAsync(queue, messageByPost);
 
             return Ok();
-
         }
 
         static async Task InsertMessageAsync(QueueClient theQueue, string newMessage)
