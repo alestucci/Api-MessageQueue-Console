@@ -20,6 +20,10 @@ namespace Challenge1.Controllers
         [HttpPost(Name = "CreateMessage")]
         public async Task<IActionResult> CreateMessage(Message message)
         {
+            // Create a QueueClient that will authenticate through Active Directory
+            Uri queueUri = new Uri("https://MYSTORAGEACCOUNT.queue.core.windows.net/QUEUENAME");
+            QueueClient queue = new QueueClient(queueUri /*, new DefaultAzureCredential()*/);
+
             var messageByPost = JsonSerializer.Serialize(message);
 
             string connectionString = _configuration.GetValue<string>("ConnectionString");
