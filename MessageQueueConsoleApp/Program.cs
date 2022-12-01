@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Challenge1;
+using Microsoft.Extensions.Configuration;
 
 namespace MessageQueueConsoleApp
 {

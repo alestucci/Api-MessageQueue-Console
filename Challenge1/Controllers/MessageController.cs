@@ -10,13 +10,10 @@ namespace Challenge1.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
-        private readonly Message _message;
-
         private readonly IConfiguration _configuration;
 
         public MessageController(IConfiguration configuration)
         {
-            //_message = new Message();
             _configuration = configuration;
         }
 
@@ -26,7 +23,6 @@ namespace Challenge1.Controllers
             var messageByPost = JsonSerializer.Serialize(message);
 
             string connectionString = _configuration.GetValue<string>("ConnectionString");
-            //string connectionString = "DefaultEndpointsProtocol=https;AccountName=sachallenge;AccountKey=pbIdZlD+WZs4sPsbMJF4CuGPVjhKBtQldxR5bn2Rmg5zMFaspWqTKVLF6nU8XDpH8BN8C7cHfEhG+AStniUSEw==;EndpointSuffix=core.windows.net";
 
             QueueClient queue = new QueueClient(connectionString, "va-queue");
 
