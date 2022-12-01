@@ -5,7 +5,7 @@ namespace Challenge1
 {
     public class Message
     {
-        public static string DateTime { get; set; }
+        public string DateTime { get; set; }
         
         public string MessageTitle { get; set; }
 

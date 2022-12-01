@@ -12,13 +12,12 @@ namespace Challenge1.Controllers
     {
         private readonly Message _message;
 
-        //private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
-
-        public MessageController()
+        public MessageController(IConfiguration configuration)
         {
-            //_configuration = configuration;
-            _message = new Message();
+            //_message = new Message();
+            _configuration = configuration;
         }
 
         [HttpPost(Name = "CreateMessage")]
@@ -26,7 +25,8 @@ namespace Challenge1.Controllers
         {
             var messageByPost = JsonSerializer.Serialize(message);
 
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=sachallenge;AccountKey=pbIdZlD+WZs4sPsbMJF4CuGPVjhKBtQldxR5bn2Rmg5zMFaspWqTKVLF6nU8XDpH8BN8C7cHfEhG+AStniUSEw==;EndpointSuffix=core.windows.net";
+            string connectionString = _configuration.GetValue<string>("ConnectionString");
+            //string connectionString = "DefaultEndpointsProtocol=https;AccountName=sachallenge;AccountKey=pbIdZlD+WZs4sPsbMJF4CuGPVjhKBtQldxR5bn2Rmg5zMFaspWqTKVLF6nU8XDpH8BN8C7cHfEhG+AStniUSEw==;EndpointSuffix=core.windows.net";
 
             QueueClient queue = new QueueClient(connectionString, "va-queue");
 
